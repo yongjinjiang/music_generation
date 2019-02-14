@@ -18,7 +18,7 @@ app.config['UPLOAD_FOLDER'] = "./static"
 
 @app.route('/')
 def index():
-   return render_template('index.html')
+   return render_template('./index.html')
 
 # @app.route('/upload')
 # def upload():
@@ -48,7 +48,7 @@ def upload_file():
       files_grabbed2=list(set(files_grabbed2)-set(our_list))
       print("files_grabbed2=",files_grabbed2) 
 
-      return render_template('index.html', x1=files_grabbed1,x2=files_grabbed2)   # list files, delete files , and most importantly, do traning and generating new music!
+      return render_template('./index.html', x1=files_grabbed1,x2=files_grabbed2)   # list files, delete files , and most importantly, do traning and generating new music!
 		
 
 # @app.route('/train', methods = ['GET', 'POST'])
@@ -64,16 +64,16 @@ if __name__ == '__main__':
 
 
 
-melody_rnn_create_dataset \
---config='basic_rnn' \
---input=/tmp/notesequences.tfrecord \
---output_dir=/tmp/melody_rnn/sequence_examples \
---eval_ratio=0.10
+# melody_rnn_create_dataset \
+# --config='basic_rnn' \
+# --input=/tmp/notesequences.tfrecord \
+# --output_dir=/tmp/melody_rnn/sequence_examples \
+# --eval_ratio=0.10
 
 
-melody_rnn_train \
---config='basic_rnn' \
---run_dir=/tmp/melody_rnn/logdir/run1 \
---sequence_example_file=/tmp/melody_rnn/sequence_examples/training_melodies.tfrecord \
---hparams="batch_size=64,rnn_layer_sizes=[64,64]" \
---num_training_steps=20000
+# melody_rnn_train \
+# --config='basic_rnn' \
+# --run_dir=/tmp/melody_rnn/logdir/run1 \
+# --sequence_example_file=/tmp/melody_rnn/sequence_examples/training_melodies.tfrecord \
+# --hparams="batch_size=64,rnn_layer_sizes=[64,64]" \
+# --num_training_steps=20000
