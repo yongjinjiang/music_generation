@@ -14,11 +14,14 @@ our_list=['StarWars100.mp3', 'StarWars1000SelfTrained.mp3', 'Simpons1000.mp3',\
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = "./static"
 
+import multiprocessing
 
+bind = "127.0.0.1:5000"
+workers = multiprocessing.cpu_count() * 2 + 1
 
 @app.route('/')
 def index():
-   return render_template('./index.html')
+   return render_template('index.html')
 
 # @app.route('/upload')
 # def upload():
@@ -48,7 +51,7 @@ def upload_file():
       files_grabbed2=list(set(files_grabbed2)-set(our_list))
       print("files_grabbed2=",files_grabbed2) 
 
-      return render_template('./index.html', x1=files_grabbed1,x2=files_grabbed2)   # list files, delete files , and most importantly, do traning and generating new music!
+      return render_template('index.html', x1=files_grabbed1,x2=files_grabbed2)   # list files, delete files , and most importantly, do traning and generating new music!
 		
 
 # @app.route('/train', methods = ['GET', 'POST'])
@@ -60,6 +63,7 @@ def upload_file():
 
 if __name__ == '__main__':
    app.run(debug = True)
+ 
 
 
 
