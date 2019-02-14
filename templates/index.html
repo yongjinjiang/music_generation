@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<title>Music Generation</title>
+    <style>
+        img{ width: auto;
+            height: auto;
+            padding:5%;
+            max-width: 100%;
+            max-height: 100%;}
+    
+        figure figcaption {
+          border: 1px dotted blue;
+          text-align: center;
+          font-size:150%;
+        }
+    
+        .boxed {
+  border: 1px solid green ;
+}
+    </style>
+    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+
+
+<body>
+<center><h1>Fun of music generation</h1></center>
+  <div class="container" >
+
+
+        <h1>The trained pairs</h1>
+
+        <div class="row">   
+           
+          <div class="col-md-4">
+            <audio controls>
+                    <source src="../static/StarWars1000SelfTrained.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+            </audio>
+          </div>
+
+            <div class="col-md-4">
+                    <audio controls>
+                            <source src="../static/StarWars100.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                    </audio>
+            </div>
+
+           
+
+            <div class="col-md-4">
+              <audio controls>
+                      <source src="../static/StarWars1000.mp3" type="audio/mpeg">
+                          Your browser does not support the audio element.
+              </audio>
+            </div>
+
+
+        </div>
+   <br>  <br>  <br>  
+<center><h2>Upload files</h2></center>
+<br>  <br>  
+  <!-- <div id="display_or_not" style="display: none">   -->
+    <!-- Craigslist Listings -->
+   <center>
+    <form action = "http://localhost:5000/uploader" method = "POST" 
+         enctype = "multipart/form-data">
+         <input type = "file" name = "file" />
+         <input type = "submit"/>
+      </form>
+    </center>
+      <br>  <br>  <br>  
+
+      <h3>list of  files</h3>
+
+    <div class="row">
+      
+       <div class="col-md-12">
+           
+            
+        <table border="1" class="dataframe text-center">
+          {% for file in x1 %}
+             <tr>
+               <td>{{file}}</td>
+             </tr>
+             {% endfor %}
+
+             {% for file2 in x2 %}
+             
+                <tr>
+                <td><a href={{file2}}>{{file2}}</a></td>
+                  </tr>
+             {% endfor %}
+
+
+        </table>
+           
+         
+       </div>
+     </div>
+    
+   </div> 
+
+  <center> <p> mp3 files that can be played:</p></center>
+    {% for file2 in x2 %}
+      <audio controls>
+        <source src="{{ url_for('static',filename=file2)}}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    {% endfor %}
+</body>
+
+</html>
