@@ -146,9 +146,9 @@
     </center>
       <br>  <br>  <br>  
 
-      <h3>list of  files</h3>
+      <!-- <center> <h3>Full list of  files</h3></center> -->
 
-    <div class="row">
+    <!-- <div class="row">
       
        <div class="col-md-12">
            
@@ -163,7 +163,7 @@
              {% for file2 in x2 %}
              
                 <tr>
-                <td><a href={{file2}}>{{file2}}</a></td>
+                <td>{{file2}}</td>
                   </tr>
              {% endfor %}
 
@@ -172,17 +172,50 @@
            
          
        </div>
-     </div>
+     </div> -->
     
    </div> 
 
-  <center> <p> mp3 files that can be played:</p></center>
+  <center> <p> mp3 files that was just uploaded:</p></center>
+
+  <center> 
+  <table>
+    <tr>
+      <th><center>click to train</center></th>
+      <th><center>click to listen</center></th>
+    </tr>
     {% for file2 in x2 %}
+    <tr>
+    <td><center><a src="{{ url_for('static',filename=file2)}}">{{file2}}</a></center></td>
+    <td><center>
       <audio controls>
         <source src="{{ url_for('static',filename=file2)}}" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
+      </center>
+    </td>
+    </tr>
     {% endfor %}
+  </table>
+</center>
+<!-- 
+    <center> <p> checkbox</p></center>
+    {% for file2 in x2 %}
+    <form action = "http://localhost:5000/train" method = "POST" >
+
+      <input type="checkbox" name="vehicle1" value="Bike"> {{file2}}<br>
+ 
+      {% endfor %}
+      <input type="submit" value="Submit">
+    </form>
+
+    <div id="train"></div>
+    <script>
+      function train_pices(){this.value}
+    </script>
+     -->
+
+
 </body>
 
 </html>
