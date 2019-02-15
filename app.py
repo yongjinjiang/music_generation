@@ -54,6 +54,17 @@ def upload_file():
       return render_template('index.html', x1=files_grabbed1,x2=files_grabbed2)   # list files, delete files , and most importantly, do traning and generating new music!
 		
 
+# @app.route("/generated/lookback")
+# def generated():
+#    subprocess.call("./generate_lookback.sh", shell=True)
+
+
+
+#    return render_template('index.html')
+
+
+
+
 # @app.route('/train', methods = ['GET', 'POST'])
 # def train_file():     
 #    if request.method == 'POST':
