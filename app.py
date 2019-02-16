@@ -1,14 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for,flash
 from werkzeug import secure_filename
 import os
 #for getting the file list:
 import glob
 types1 = ('*.pdf', '*.py','*.mp3') # the tuple of file types 
 types2 =('*.mp3',)
-our_list=['StarWars100.mp3', 'StarWars1000SelfTrained.mp3', 'Simpons1000.mp3',\
-    'SimpsonsOriginal.mp3',  'StarWars1000.mp3', \
-       'TwoFountainsOriginal.mp3', 'TwoFountains1000.mp3', \
-           'Simpons100.mp3',  'TwoFountains100.mp3']
+our_list=['StarWars100.mp3', 'StarWars25000.mp3', 'StarWarsOriginal.mp3', \
+    'GuitarSolo100.mp3', "GuitarSolo25000.mp3", "GuitarSoloOriginal2.mp3",\
+       'TwoFountainsOriginal.mp3', 'TwoFountains100.mp3','TwoFountains25000.mp3']
 #https://stackabuse.com/python-list-files-in-a-directory/
 
 app = Flask(__name__)
@@ -22,21 +21,29 @@ workers = multiprocessing.cpu_count() * 2 + 1
 @app.route('/')
 def index():
 
-      files_grabbed1 = []
-      for files in types1:
-         files_grabbed1.extend(glob.glob(files))
-      files_grabbed1 
-      print("files_grabbed1=",files_grabbed1)  
-
+      # files_grabbed1 = []
+      # for files in types1:
+      #    files_grabbed1.extend(glob.glob(files))
+      # files_grabbed1 
+      # print("files_grabbed1=",files_grabbed1)  
+      
       files_grabbed2 = []
       for files in types2:
-         files_grabbed2.extend(glob.glob("./static/"+files))
+         files_grabbed2.extend(glob.glob(app.config['UPLOAD_FOLDER'] +'/'+files))
       files_grabbed2=[file.split('/')[-1] for file in files_grabbed2]
       files_grabbed2=list(set(files_grabbed2)-set(our_list))
       print("files_grabbed2=",files_grabbed2) 
+      files_size=[round(os.stat(os.path.join(app.config['UPLOAD_FOLDER'],file2)).st_size/(1000*1000.0),2) for file2 in  files_grabbed2]
+      
+      files_grabbed2_dict=[]
+      for i,file2 in enumerate(files_grabbed2):
+         ss=dict();ss[file2]=files_size[i]
+         files_grabbed2_dict.append(ss)
+       
 
-      return render_template('index.html', x1=files_grabbed1,x2=files_grabbed2)   # list files, delete files , and most importantly, do traning and generating new music!
-		
+      # return render_template('index.html', x1=files_grabbed1,x2=files_grabbed2)   # list files, delete files , and most importantly, do traning and generating new music!
+		# return render_template('index.html', x2=files_grabbed2) 
+      return render_template('index.html',x2=files_grabbed2_dict)
 
    # return render_template('index.html')
 
@@ -44,6 +51,10 @@ def index():
 # def upload():
 #    return render_template('upload.html')
 	
+import ctypes  # An included library with Python install.
+def Mbox(title, text, style):
+    return ctypes.windll.user32.MessageBoxW(0, text, title, style)
+
 
 
 @app.route('/uploader', methods = ['GET', 'POST'])
@@ -51,10 +62,25 @@ def upload_file():
    if request.method == 'POST':
       f = request.files['file']
       # f.save(secure_filename(f.filename))
-      f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
-      print('file uploaded successfully')
-      print('file uploaded successfully')
-      print('file uploaded successfully')
+      file_path=os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename))
+      # print("file_path=",file_path,"%%%%%%%%%%%%")
+      f.save(file_path)
+      file_size=os.stat(file_path).st_size
+      print('the file size is',file_size)
+   
+      if file_size/(1000*1000.0)>10:
+         Mbox('Your title', 'Your text', 1)
+         print("this file is larger than 10M, please choose a smaller one")
+         os.remove(file_path)
+      elif len([name for name in os.listdir(app.config['UPLOAD_FOLDER'])])>11:
+            print("the number of your uploaded files is exceeding max=3, please delete some")
+            os.remove(file_path)
+            sentence="the number of your uploaded files is exceeding max=3, please delete some"
+            return render_template('index.html',sentence=sentence)  
+      else:
+               #f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
+               print('file uploaded successfully')
+  
    
       
       # files_grabbed1 = []

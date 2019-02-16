@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,6 +25,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
@@ -133,6 +136,10 @@
 
 
    <br>  <br>  <br>  
+
+   
+
+
 <center><h2>Upload files</h2></center>
 <br>  <br>  
   <!-- <div id="display_or_not" style="display: none">   -->
@@ -176,28 +183,42 @@
     
    </div> 
 
-  <center> <p> mp3 files that was just uploaded:</p></center>
-
+  <center> <a href='/'>mp3 files that was just uploaded:</a> </center>
+    
   <center> 
   <table>
     <tr>
-      <th><center>click to train</center></th>
+      <th><center>delete?</center></th>
+      <th><center>click to train(to be implemented)</center></th>
       <th><center>click to listen</center></th>
+      <th><center>size</center></th>
     </tr>
     {% for file2 in x2 %}
-    <tr>
-    <td><center><a src="{{ url_for('static',filename=file2)}}">{{file2}}</a></center></td>
+    {% for key, value in file2.items() %}
+    <tr id={{key}}>
+      <td> <input type='button' value={{key}} onclick='delete_me(this)' /> </td>
+    <!-- <td><center><a src="{{ url_for('static',filename=file2)}}">{{file2}}</a></center></td> -->
+    <td><center>train</a></center></td>
     <td><center>
       <audio controls>
-        <source src="{{ url_for('static',filename=file2)}}" type="audio/mpeg">
+        <source src="{{ url_for('static',filename=key)}}" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
       </center>
     </td>
+
+    <td><center>
+        {{value}}M
+        </center>
+      </td>
     </tr>
+    {% endfor %}
     {% endfor %}
   </table>
 </center>
+
+
+
 <!-- 
     <center> <p> checkbox</p></center>
     {% for file2 in x2 %}
@@ -214,7 +235,13 @@
       function train_pices(){this.value}
     </script>
      -->
+     <script>
+        function delete_me(objButton) {
+          // alert(objButton.value);
 
+          document.getElementById(objButton.value).outerHTML = "";
+        }
+        </script>
 
 </body>
 
