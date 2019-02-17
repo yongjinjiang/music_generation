@@ -4,7 +4,8 @@ import os
 #for getting the file list:
 import glob
 types1 = ('*.pdf', '*.py','*.mp3') # the tuple of file types 
-types2 =('*.mp3',)
+types2 =('*.mp3','*.mid','*.pdf', '*.py',"*.wav")
+
 our_list=['StarWars100.mp3', 'StarWars25000.mp3', 'StarWarsOriginal.mp3', \
     'GuitarSolo100.mp3', "GuitarSolo25000.mp3", "GuitarSoloOriginal2.mp3",\
        'TwoFountainsOriginal.mp3', 'TwoFountains100.mp3','TwoFountains25000.mp3']
@@ -45,17 +46,6 @@ def index():
 		# return render_template('index.html', x2=files_grabbed2) 
       return render_template('index.html',x2=files_grabbed2_dict)
 
-   # return render_template('index.html')
-
-# @app.route('/upload')
-# def upload():
-#    return render_template('upload.html')
-	
-import ctypes  # An included library with Python install.
-def Mbox(title, text, style):
-    return ctypes.windll.user32.MessageBoxW(0, text, title, style)
-
-
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
@@ -69,7 +59,6 @@ def upload_file():
       print('the file size is',file_size)
    
       if file_size/(1000*1000.0)>10:
-         Mbox('Your title', 'Your text', 1)
          os.remove(file_path)
          sentence="this file is larger than 10M, please choose a smaller one!!"
          return render_template('index.html',file_message=sentence)  
