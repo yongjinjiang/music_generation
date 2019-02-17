@@ -21,16 +21,19 @@
   border: 1px solid green ;
 }
     </style>
-    
+     <link rel="icon" href="data:,">
+     <link rel="shortcut icon" href="">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
   <!-- <link rel="stylesheet" href="styles.css"> -->
+  <style type="text/css">
+  </style>
 </head>
 
 
@@ -141,6 +144,7 @@
 
 
 <center><h2>Upload files</h2></center>
+<center><div id='upload_alert' ></div></center>
 <br>  <br>  
   <!-- <div id="display_or_not" style="display: none">   -->
     <!-- Craigslist Listings -->
@@ -219,30 +223,21 @@
 
 
 
-<!-- 
-    <center> <p> checkbox</p></center>
-    {% for file2 in x2 %}
-    <form action = "http://localhost:5000/train" method = "POST" >
-
-      <input type="checkbox" name="vehicle1" value="Bike"> {{file2}}<br>
- 
-      {% endfor %}
-      <input type="submit" value="Submit">
-    </form>
-
-    <div id="train"></div>
-    <script>
-      function train_pices(){this.value}
-    </script>
-     -->
-     <script>
-        function delete_me(objButton) {
-          // alert(objButton.value);
-
-          document.getElementById(objButton.value).outerHTML = "";
+      <script>
+      function delete_me(objButton) {
+          document.getElementById(objButton.value).outerHTML = " ";
         }
-        </script>
+      </script>
 
+      <script type="text/javascript">
+            var sentence= '{{file_message}}'
+            console.log(sentence)
+      </script>
+
+     
+        <script>
+            d3.select("#upload_alert").text(sentence)
+          </script>
 </body>
 
 </html>

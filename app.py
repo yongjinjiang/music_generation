@@ -70,13 +70,13 @@ def upload_file():
    
       if file_size/(1000*1000.0)>10:
          Mbox('Your title', 'Your text', 1)
-         print("this file is larger than 10M, please choose a smaller one")
          os.remove(file_path)
-      elif len([name for name in os.listdir(app.config['UPLOAD_FOLDER'])])>11:
-            print("the number of your uploaded files is exceeding max=3, please delete some")
+         sentence="this file is larger than 10M, please choose a smaller one!!"
+         return render_template('index.html',file_message=sentence)  
+      elif len([name for name in os.listdir(app.config['UPLOAD_FOLDER'])])>15:
             os.remove(file_path)
-            sentence="the number of your uploaded files is exceeding max=3, please delete some"
-            return render_template('index.html',sentence=sentence)  
+            sentence="the number of your uploaded files is exceeding max=6, please delete some!!"
+            return render_template('index.html',file_message=sentence)  
       else:
                #f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
                print('file uploaded successfully')
