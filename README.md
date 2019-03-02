@@ -1,8 +1,9 @@
 ## About
-   - This is our final project for the [Data Visualization and Analytics] program(https://bootcamp.umn.edu/data/landing%20full/).
+   - This is our final project for the [Data Visualization and Analytics] (https://bootcamp.umn.edu/data/landing%20full/) program.
    - We used a code template from the online 
 course ["Deep Learning Specialization"](https://www.coursera.org/specializations/deep-learning) to train the model and use it to generate music.
-   - The app is deployed on Heroku: https://mj-music-generation.herokuapp.com/. 
+   - The app is deployed on Heroku: https://mj-music-generation.herokuapp.com/.
+   - Here is [Our presentation](https://slides.com/yongjinjiang/deck-1/fullscreen), which is equivalent to ppt version in the repo.
 
 ## Goal
    - Using music input, train a model with LSTM recursive neural network,  and generate new pieces of the same style.
