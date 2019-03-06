@@ -1,5 +1,5 @@
 ## About
-   - This is our final project for the [Data Visualization and Analytics](https://bootcamp.umn.edu/data/landing%20full/) program.
+   - This is the final group project for the [Data Visualization and Analytics](https://bootcamp.umn.edu/data/landing%20full/) program.
    - We used a code template from the online 
 course ["Deep Learning Specialization"](https://www.coursera.org/specializations/deep-learning) to train the model and use it to generate music.
    - The app is deployed on Heroku: https://mj-music-generation.herokuapp.com/.
